@@ -46,9 +46,13 @@
                             <a class="btn btn-primary text-white" href="{{ route('admin.penduduk.create') }}">
                                 {{ __('Create New Data Penduduk') }}
                             </a>
+                        @endif
+                        @if (auth()->user()->can('penduduk.importexcel'))
                             <a class="btn btn-primary text-white" href="{{ route('admin.penduduk.importexcel') }}">
                                 {{ __('Import Data Penduduk') }}
                             </a>
+                        @endif
+                        @if (auth()->user()->can('penduduk.exportexcel'))
                             <a class="btn btn-primary text-white" href="{{ route('admin.penduduk.export') }}">
                                 {{ __('Export Data Penduduk') }}
                             </a>

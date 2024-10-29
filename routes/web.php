@@ -54,3 +54,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('penduduk/export', [PendudukController::class, 'export'])->name('penduduk.export');
     Route::resource('penduduk', PendudukController::class);
 })->middleware('auth:admin');
+
+// Route::middleware('api')->group(function () {
+//     Route::apiResource('api/penduduk', 'ApiPendudukController');
+// });
