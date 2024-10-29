@@ -1,5 +1,3 @@
-<p align="center"><a href="https://optimasolution.co.id" target="_blank"><img src="https://optimasolution.co.id/wp-content/uploads/sites/47/2018/06/s-soft-lg.png" width="400"></a></p>
-
 <p align="center">
 <a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
