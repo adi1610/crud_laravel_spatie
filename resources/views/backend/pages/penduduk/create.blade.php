@@ -65,9 +65,13 @@ Data Penduduk Create - Admin Panel
                                 <label for="penTempatLahir">Tempat Lahir</label>
                                 <input type="text" class="form-control" id="penTempatLahir" name="penTempatLahir" placeholder="Enter Tempat Lahir" required>
                             </div>
-                            <div class="form-group col-md-6 col-sm-12">
+                            <div class="form-group col-md-4 col-sm-12">
                                 <label for="penTglLahir">Tanggal Lahir</label>
                                 <input type="date" class="form-control" id="penTglLahir" name="penTglLahir" placeholder="Enter Tanggal" required>
+                            </div>
+                            <div class="form-group col-md-2 col-sm-12">
+                                <label for="penTglLahir">Umur</label>
+                                <input type="text" class="form-control" id="umur" name="umur" placeholder="Umur" required readonly>
                             </div>
                         </div>
 
@@ -97,52 +101,26 @@ Data Penduduk Create - Admin Panel
         $('.select2').select2();
     })
 
-    function save() {
-        $('#form').on('submit', function(event) {
-            event.preventDefault();
-            let postdata = new FormData(this);
+    document.getElementById('penTglLahir').addEventListener('change', function() {
+        const birthDate = new Date(this.value);
+        const today = new Date();
 
-            postdata.penNik = $('#penNik').val();
-            postdata.penNama = $('#penNama').val();
-            postdata.penTempatLahir = $('#penTempatLahir').val();
-            postdata.penTglLahir = $('#penTglLahir').val();
-            postdata.penImage = document.getElementById('penImage').value;
+        let years = today.getFullYear() - birthDate.getFullYear();
+        let months = today.getMonth() - birthDate.getMonth();
+        let days = today.getDate() - birthDate.getDate();
 
-            console.log('new : ', postdata);
+        if (months < 0) {
+            years--;
+            months += 12;
+        }
 
-            $.ajax({
-                type: "POST",
-                url: "/admin/penduduk/create",
-                data: (postdata),
-                dataType: "json",
-                async: false,
-                processData: false, //add this
-                contentType: false, //and this
-                success: function(data) {
-                // console.log(data);
-                if (data.status == 401) {
-                    alertify.error('Form Wajib Harus diisi');
-                    setTimeout(function() {
-                    location.reload();
-                    }, 500);
-                }else if (data.status == 402) {
-                    alertify.error('Size FIle / Foto Melebihi Batas!');
-                    setTimeout(function() {
-                    location.reload();
-                    }, 500);
-                } else {
-                    alertify.success('Berhasil Disimpan');
-                    setTimeout(function() {
-                    location.reload();
-                    }, 500);
-                }
-                },
-                error: function(dataerror) {
-                console.log(dataerror);
-                }
-            });
+        if (days < 0) {
+            months--;
+            const lastMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+            days += lastMonth.getDate();
+        }
 
-        });
-    }
+        document.getElementById('umur').value = `${years} tahun, ${months} bulan, ${days} hari`;
+    });
 </script>
 @endsection

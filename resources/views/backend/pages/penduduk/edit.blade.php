@@ -65,9 +65,13 @@ Admin Edit - Admin Panel
                                 <label for="tempat_lahir">Tempat Lahir</label>
                                 <input type="text" class="form-control" id="penTempatLahir" name="penTempatLahir" placeholder="Enter Tempat Lahir" required value="{{ $penduduk->penTempatLahir }}">
                             </div>
-                            <div class="form-group col-md-6 col-sm-12">
+                            <div class="form-group col-md-4 col-sm-12">
                                 <label for="ttdlahir">Tanggal Lahir</label>
                                 <input type="date" class="form-control" id="penTglLahir" name="penTglLahir" placeholder="Enter Tanggal" required value="{{ $penduduk->penTglLahir }}">
+                            </div>
+                            <div class="form-group col-md-2 col-sm-12">
+                                <label for="penTglLahir">Umur</label>
+                                <input type="text" class="form-control" id="umur" name="umur" placeholder="Umur" required readonly>
                             </div>
                         </div>
 
@@ -99,5 +103,36 @@ Admin Edit - Admin Panel
     $(document).ready(function() {
         $('.select2').select2();
     })
+
+    setTimeout(() => {
+        const birthDate = new Date(document.getElementById('penTglLahir').value);
+        hitungumur(birthDate);
+    }, 1000);
+
+    document.getElementById('penTglLahir').addEventListener('change', function() {
+        const birthDate = new Date(this.value);
+        hitungumur(birthDate);
+    });
+
+    function hitungumur(birthDate){
+        const today = new Date();
+
+        let years = today.getFullYear() - birthDate.getFullYear();
+        let months = today.getMonth() - birthDate.getMonth();
+        let days = today.getDate() - birthDate.getDate();
+
+        if (months < 0) {
+            years--;
+            months += 12;
+        }
+
+        if (days < 0) {
+            months--;
+            const lastMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+            days += lastMonth.getDate();
+        }
+
+        document.getElementById('umur').value = `${years} tahun, ${months} bulan, ${days} hari`;
+    }
 </script>
 @endsection
