@@ -79,7 +79,7 @@ class PendudukController extends Controller
     
     public function store(Request $request)
     {
-        $this->checkAuthorization(auth()->user(), ['penduduk.store']);
+        $this->checkAuthorization(auth()->user(), ['penduduk.create']);
         // Validasi input
         // $request->validate([
         //     'penNik' => 'required|unique:penduduks,penNik|digits:16',
